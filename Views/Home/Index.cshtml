@@ -1,0 +1,91 @@
+﻿@model IEnumerable<RestauranteMexicano.Models.Platillo>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="contenedor">
+  <div align="center" class="contenedor-restaurante">
+    <img src="/imagenes/sliders/restaurante.jpeg" border="10" vspace="20" hspace="10" alt="">
+  </div>
+  <div class="restaurante">
+    <h1>Restaurante PORFIRIO'S</h1>
+    <br>
+    <br>
+    <p><i>"Elige y saborea tu gusto"</i></p>
+  </div>
+</div>
+<div id="carousel" class="carousel slide" data-bs-ride="carousel">
+  <ol class="carousel-indicators">
+    <li data-bs-target="#carousel" data-bs-slide-to="0" class="active"></li>
+    <li data-bs-target="#carousel" data-bs-slide-to="1"></li>
+    <li data-bs-target="#carousel" data-bs-slide-to="2"></li>
+    <li data-bs-target="#carousel" data-bs-slide-to="3"></li>
+    <li data-bs-target="#carousel" data-bs-slide-to="4"></li>
+  </ol>
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="/imagenes/sliders/elote.jpg" class="d-block w-100" alt="...">
+      <div class="carousel-caption">
+        <h2>Menú Fin De Semana</h2>
+        <img alt="menú 2x1" src="/imagenes/sliders/2x1.jpg">
+        <p class="h4">En Todos Los Elotes </p>
+        <p>Consulta esto y todas las promociones que tenemos en nuestro apartado de abajo</p>
+
+      </div>
+    </div>
+    <div class="carousel-item">
+      <img src="/imagenes/sliders/asado.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/imagenes/sliders/enchiladas.jpg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/imagenes/sliders/pozole.jpeg" class="d-block w-100" alt="...">
+    </div>
+    <div class="carousel-item">
+      <img src="/imagenes/sliders/tamales.jpg" class="d-block w-100" alt="...">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+  </button>
+</div>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-12 d-flex justify-content-center mt-3">
+            <h2 class="titulo">Menú</h2>
+        </div>
+        <div class = "col-12 d-flex justify-content-center">
+           <div class="titulo-divisor"></div>
+        </div>
+    </div>
+    <div class="row">
+    @if (Model.Count()>0)
+    {
+        @foreach (var platillo in Model.OrderBy(o => o.Id))
+        {
+          var Categoria = @platillo.Categoria;
+            <div class="col-sm-12 col-md-4">
+                <div class="card" style="width: 18rem;">
+                <img src="/@platillo.UrlImagen" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@platillo.Nombre</h5>
+                </div>
+                <ul class="list-group list-group-flush">
+                  <li class="list-group-item"> @Html.DisplayNameFor(model => model.Categoria): @Categoria.Nombre</li>
+                  <li class="list-group-item"> @Html.DisplayNameFor(model => model.Precio): @platillo.Precio</li>
+                </ul>
+                <div class="card-body">
+                    <button class="boton-modificado">
+                        <a asp-controller="Platillos" asp-action="Details" asp-route-id="@platillo.Id">Ver Detalles</a>
+                    </button>
+                </div>
+                </div>
+            </div>
+        }
+    }
+    </div>
+</div>
